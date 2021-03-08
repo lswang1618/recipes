@@ -136,7 +136,7 @@ class RecipeTemplate extends React.Component {
     const recipe = get(this.props, 'data.contentfulRecipe');
     this.renderIngredients(recipe.recipeIngredients.ingredients);
     const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
-    console.log(recipe);
+    
     return (
       <div location={this.props.location}>
         <div>
