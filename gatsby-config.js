@@ -3,7 +3,7 @@ module.exports = {
       title: `Recipes`,
       description: `Delicious, easy, and simple Chinese cooking.`,
       author: ``,
-      siteUrl: `http://www.almostfun.org`
+      siteUrl: `https://main.dulnqs24msz0g.amplifyapp.com/`
     },
     plugins: [
         {
