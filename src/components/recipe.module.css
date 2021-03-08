@@ -101,6 +101,33 @@
     display: inline-block;
 }
 
+.recipeText ol {
+    counter-reset: list-number 0;
+}
+
+.recipeText li {
+    line-height: 25px;
+    position: relative;
+}
+
+.recipeText li::before {
+    background-color: #383942;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 12.5px;
+    counter-increment: list-number 1;
+    content: counter(list-number);
+    display: inline-block;
+    position: absolute;
+    left: -30px;
+    text-align: center;
+}
+
+.recipeText li::marker {
+    color: white;
+}
+
 .recipeImage {
     width: calc(60% - 150px);
     display: inline-block;
