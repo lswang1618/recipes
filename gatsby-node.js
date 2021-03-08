@@ -28,7 +28,7 @@ exports.createPages = ({ graphql, actions }) => {
         recipes.forEach(recipe => {
           createPage({
             // Path for this page — required
-            path: `/recipes/${recipe.node.slug}/`,
+            path: `/recipes/${recipe.node.slug}`,
             component: recipeTemplate,
             context: {
               slug: recipe.node.slug,
