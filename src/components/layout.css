@@ -1,21 +1,21 @@
 @font-face {
     font-family: Averta;
-    src: url("../fonts/Averta.otf") format("opentype");
+    src: url("../../static/fonts/Averta.otf") format("opentype");
 }
 
 @font-face {
     font-family: Averta-Demi;
-    src: url("../fonts/Averta-Demi.otf") format("opentype");
+    src: url("../../static/fonts/Averta-Demi.otf") format("opentype");
 }
 
 @font-face {
     font-family: Averta-Bold;
-    src: url("../fonts/Averta-Bold.otf") format("opentype");
+    src: url("../../static/fonts/Averta-Bold.otf") format("opentype");
 }
 
 @font-face {
     font-family: SFPro;
-    src: url("../fonts/SF-Pro-Text-Medium.otf") format("opentype");
+    src: url("../../static/fonts/SF-Pro-Text-Medium.otf") format("opentype");
 }
 
 
