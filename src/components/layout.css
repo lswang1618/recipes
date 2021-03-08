@@ -1,0 +1,48 @@
+@font-face {
+    font-family: Averta;
+    src: url("../fonts/Averta.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Averta-Demi;
+    src: url("../fonts/Averta-Demi.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Averta-Bold;
+    src: url("../fonts/Averta-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: SFPro;
+    src: url("../fonts/SF-Pro-Text-Medium.otf") format("opentype");
+}
+
+
+body {
+    background-color: #f7f7f7;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-family: Averta-Demi;
+    padding-top: 2px;
+}
+
+li, p {
+    font-family: SFPro;
+}
+
+button {
+    background-color: #ffffff;
+    border: 2px solid #44BBA4;
+    padding: 10px 15px;
+    font-family: SFPro;
+    cursor: pointer;
+    color: #44BBA4;
+}
+
+button:hover {
+    background-color: #44BBA4;
+    color: #ffffff;
+}
