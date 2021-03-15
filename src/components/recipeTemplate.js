@@ -56,7 +56,7 @@ const richTextOptions = {
                     />;
                     case 'video':
                       images.push(<video src={file['en-US'].url}></video>)
-                    return <video controls autoPlay muted style={{ width: '60%', height: '100%'}}>
+                    return <video controls autoPlay muted playsInline style={{ width: '90%', height: '100%', maxWidth: '300px'}}>
                         <source src={file['en-US'].url} />
                     </video>;
                     case 'application':
@@ -117,7 +117,7 @@ class RecipeTemplate extends React.Component {
     var ingredients = [];
     for (var j=0; j<list.length; j++) {
       const ingredient = list[j];
-      const imgName = "/" + ingredient.ingredient.replace(/\s/g, '-').toLowerCase() + ".jpg";
+      const imgName = "/" + ingredient.ingredient.replace(/ /g, '-').toLowerCase() + ".jpg";
       ingredients.push(
         <div key={j} className={recipeStyles.ingredient}>
           <div className={recipeStyles.ingredientImg}>
