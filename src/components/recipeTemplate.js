@@ -121,10 +121,7 @@ class RecipeTemplate extends React.Component {
       ingredients.push(
         <div key={j} className={recipeStyles.ingredient}>
           <div className={recipeStyles.ingredientImg}>
-            <img src={imgName} onError={(event)=>{
-              event.target.setAttribute("src",imgName.substring(0, imgName.length - 5) + ".jpg")}
-            }
-            ></img>
+            <img src={imgName}></img>
           </div>
           <p>{ingredient.number + " " + ingredient.unit + " " + ingredient.ingredient}</p>
         </div>
