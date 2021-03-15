@@ -117,15 +117,11 @@ class RecipeTemplate extends React.Component {
     var ingredients = [];
     for (var j=0; j<list.length; j++) {
       const ingredient = list[j];
-      console.log(ingredient.ingredient);
       const imgName = "/" + ingredient.ingredient.replace(/ /g, '-').toLowerCase() + ".jpg";
-      console.log(imgName);
       ingredients.push(
         <div key={j} className={recipeStyles.ingredient}>
           <div className={recipeStyles.ingredientImg}>
             <img src={imgName} onError={(event)=>{
-              console.log(error);
-              console.log(imgName.subString(0, imgName.length - 5));
               event.target.setAttribute("src",imgName.substring(0, imgName.length - 5) + ".jpg")}
             }
             ></img>
