@@ -34,7 +34,7 @@ export const query = graphql`
 
 const RecipePreview = ({recipe}) => {
   return (
-      <Link to={`/recipes/${recipe.slug}`} style={{textDecoration: 'none', color: 'black'}}>
+      <Link to={`/recipes/${recipe.slug}`} style={{textDecoration: 'none', color: 'black'}} className={homeStyles.thumbnail}>
           <div className={homeStyles.recipePreview}>
               <div>
                   <div style={{position: 'relative'}}>

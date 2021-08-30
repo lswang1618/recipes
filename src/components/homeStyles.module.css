@@ -20,6 +20,10 @@
     right: 0;
 }
 
+.thumbnail:hover .bg {
+    animation: rotate 5s linear infinite;
+}
+
 .mainContent {
     vertical-align: top;
 }
@@ -38,7 +42,7 @@
     padding: 20px;
     background-color: #E3DAFF;
     border-radius: 10px;
-    border: 2px solid black;
+    border: 2px solid #C589E8;
 }
 
 .email h3 {
@@ -57,6 +61,7 @@
     padding: 10px 15px;
     border-radius: 0;
     font-family: SFPro;
+    border: 2px solid #C589E8;
 }
 
 .previews {
@@ -98,7 +103,11 @@
     width: 100%;
   }
 
-/* .logo b{
-    color: #fee;
-    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #CD071E, 0 0 0.5em #CD071E, 0 0 0.1em #CD071E, 0 10px 3px #000;
-} */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}

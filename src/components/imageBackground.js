@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import homeStyles from "./homeStyles.module.css"
 
 class ImgBackground extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class ImgBackground extends Component {
 
     render() {
         return(
-            <canvas ref={this.canvas} width="190" height="190" />
+            <canvas ref={this.canvas} width="190" height="190" className={homeStyles.bg}/>
         )
     }
 }
