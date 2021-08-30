@@ -18,6 +18,11 @@
     src: url("../fonts/SF-Pro-Text-Medium.otf") format("opentype");
 }
 
+@font-face {
+    font-family: Pacifico;
+    src: url("../fonts/Pacifico-Regular.otf") format("opentype");
+}
+
 
 body {
     background-color: #f7f7f7;
@@ -35,14 +40,14 @@ li, p {
 
 button {
     background-color: #ffffff;
-    border: 2px solid #44BBA4;
+    border: 2px solid #C589E8;
     padding: 10px 15px;
     font-family: SFPro;
     cursor: pointer;
-    color: #44BBA4;
+    color: #C589E8;
 }
 
 button:hover {
-    background-color: #44BBA4;
+    background-color: #C589E8;
     color: #ffffff;
 }
