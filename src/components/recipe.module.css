@@ -1,3 +1,7 @@
+.mobileMenu { 
+    display: none;
+}
+
 .header {
     background-color: #383942;
     width:100%;
@@ -7,6 +11,7 @@
     width: 80%;
     max-width: 900px;
     margin: 0 auto;
+    position: relative;
 }
 
 .thumbnail {
@@ -46,6 +51,8 @@
     width: 80%;
     max-width: 900px;
     margin: 0 auto;
+    display: grid;
+    grid-auto-flow: column;
 }
 
 .ingredients {
@@ -56,10 +63,16 @@
     margin-right: 25px;
     vertical-align: top;
     border-right: 1px solid #38394275;
+    position: sticky;
+    top: 0;
 }
 
 .ingredient {
     margin-bottom:10px;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .ingredientImg {
@@ -67,8 +80,7 @@
     height: 76px;
     background-color: white;
     border-radius: 38px;
-    display: inline-block;
-    position: relative;
+    display: flex;
     overflow: hidden;
 }
 
@@ -77,16 +89,10 @@
     height: 60px;
     margin: auto;
     border-radius: 25px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 .ingredient p{
     display: inline-block;
-    line-height: 75px;
     vertical-align: top;
     margin: 0 0 0 10px;
 }
@@ -94,7 +100,6 @@
 .stepWrapper {
     display: inline-block;
     margin-top: 20px;
-    width: calc(62% - 25px);
 }
 
 .recipeText {
@@ -103,11 +108,14 @@
 
 .recipeText ol {
     counter-reset: list-number 0;
+    padding-inline-start: 10px;
 }
 
 .recipeText li {
     line-height: 25px;
-    position: relative;
+    display: grid;
+    grid-template-columns: 30px auto;
+    align-items: baseline;
 }
 
 .recipeText li::before {
@@ -119,8 +127,6 @@
     counter-increment: list-number 1;
     content: counter(list-number);
     display: inline-block;
-    position: absolute;
-    left: -30px;
     text-align: center;
 }
 
@@ -132,4 +138,71 @@
     width: calc(60% - 150px);
     display: inline-block;
     vertical-align: top;
+}
+
+@media screen and (max-width: 600px) {
+    .mobileHeader {
+        position: sticky;
+        top: 0;
+        box-shadow: rgb(0 0 0 / 10%) 0px 4px 4px;
+    }
+
+    .mobileMenu {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 5px;
+        width: 80%;
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #f7f7f7;
+    }
+    
+    .mobileMenu button {
+        border: none;
+        padding: 0; 
+        color: black;
+        background-color: transparent;
+        text-align: left;
+    }
+
+    .mobileMenu button:hover {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: black
+    }
+
+    .selectedMenu h2 {
+        color: #C589E8 !important;
+        border-bottom: 2px solid #C589E8 !important;
+        width: max-content;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .selected { 
+        display: block;
+    }
+
+    .thumbnail {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-right: 0;
+    }
+
+    .ingredients, .stepWrapper {
+        width: 100%;
+    }
+
+    .ingredients { 
+        border-right: none;
+        position: inherit;
+    }
+
+    .ingredients h2, .stepWrapper h2 {
+        display: none;
+    }
 }

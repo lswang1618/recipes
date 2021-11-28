@@ -9,13 +9,23 @@ class ImgBackground extends Component {
     }
 
     componentDidMount() {
+        this.draw();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.width !== this.props.width) {
+            this.draw();
+        }
+    }
+
+    draw() {
         const canvas = this.canvas.current;
         const ctx = canvas.getContext("2d");
         
-        var cx=95;
-        var cy=95;
-        var radius=90;
-        var amp=5;
+        var cx=this.props.width / 2;
+        var cy=this.props.width / 2;
+        var radius=cx - (this.props.width / 38);
+        var amp=this.props.width / 38;
         var sineCount=10;
 
         ctx.beginPath();
@@ -25,7 +35,7 @@ class ImgBackground extends Component {
             ctx.lineTo(pt.x,pt.y);
         }
         ctx.closePath();
-        ctx.fillStyle = "#C589E8";
+        ctx.fillStyle = this.props.color;
         ctx.fill();
     }
 
@@ -38,7 +48,7 @@ class ImgBackground extends Component {
 
     render() {
         return(
-            <canvas ref={this.canvas} width="190" height="190" className={homeStyles.bg}/>
+            <canvas ref={this.canvas} width={`${this.props.width}px`} height={`${this.props.width}px`} className={homeStyles.bg}/>
         )
     }
 }

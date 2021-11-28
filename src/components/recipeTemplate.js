@@ -5,9 +5,10 @@ import SEO from "./seo"
 import recipeStyles from "./recipe.module.css"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
+import Lightbox from "./lightbox"
+import 'remixicon/fonts/remixicon.css'
 
 var script;
-var images = [];
 var refs = [];
 const richTextOptions = {
     renderMark: {
@@ -29,10 +30,12 @@ const richTextOptions = {
             if (node.content[k].nodeType === "embedded-asset-block") {
               const newRef = React.createRef();
               refs.push(newRef);
-              return <li ref={newRef}>{children}</li>
+              return <li ref={newRef}>
+                <div>{children}</div>
+              </li>
             } 
           }
-          return <li>{children}</li>
+          return <li><div>{children}</div></li>
         },
         [BLOCKS.EMBEDDED_ASSET]: (node) => {
             if (node.data.target.fields) {
@@ -42,23 +45,9 @@ const richTextOptions = {
     
                 switch (mimeGroup) {
                     case 'image':
-                      images.push(<img
-                          title={ title ? title['en-US'] : null}
-                          alt={description ?  description['en-US'] : null}
-                          src={file['en-US'].url}
-                          style={{ width: '100%', height: '100%'}}
-                      />)
-                    return <img
-                        title={ title ? title['en-US'] : null}
-                        alt={description ?  description['en-US'] : null}
-                        src={file['en-US'].url}
-                        style={{ width: '60%', height: '100%'}}
-                    />;
+                      return <Lightbox fields = {node.data.target.fields} type="image"/>
                     case 'video':
-                      images.push(<video src={file['en-US'].url}></video>)
-                    return <video controls autoPlay muted playsInline style={{ width: '90%', height: '100%', maxWidth: '300px'}}>
-                        <source src={file['en-US'].url} />
-                    </video>;
+                      return <Lightbox fields = {node.data.target.fields} type="video"/>
                     case 'application':
                         return <a
                             alt={description ?  description['en-US'] : null}
@@ -89,28 +78,15 @@ class RecipeTemplate extends React.Component {
     super(props);
 
     this.state = {
-      currentImage: 0,
+      mobileSelected: 0
     }
 
     this.recipeSteps = React.createRef();
     this.ingredients = [];
-    this.handleScroll = this.handleScroll.bind(this)
   }
 
   componentDidMount() {
     window.eval(script);
-    //this.recipeSteps.current.addEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll(){
-    if (refs[this.state.currentImage+1].current.getBoundingClientRect().top - this.recipeSteps.current.getBoundingClientRect().top <= 10) {
-      this.setState({currentImage: this.state.currentImage+1})
-    } else if (this.state.currentImage - 1 >= 0 
-      && refs[this.state.currentImage-1].current.getBoundingClientRect().top - this.recipeSteps.current.getBoundingClientRect().top <= 10
-      && refs[this.state.currentImage-1].current.getBoundingClientRect().top - this.recipeSteps.current.getBoundingClientRect().top >= 0
-      ) {
-      this.setState({currentImage: this.state.currentImage-1})
-    }
   }
 
   renderIngredients(list) {
@@ -131,41 +107,53 @@ class RecipeTemplate extends React.Component {
   }
 
   render() {
-    images = [];
     refs = [];
     const recipe = get(this.props, 'data.contentfulRecipe');
     this.renderIngredients(recipe.recipeIngredients.ingredients);
     const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
+
+    const { mobileSelected } = this.state;
     
     return (
       <div location={this.props.location}>
         <div>
           <SEO title={`${recipe.recipeName}`} description={`${recipe.recipeDescription}`} />
           <div>
-            <div className={recipeStyles.header}>
-              <div className={recipeStyles.headerContent}>
-                <div className={recipeStyles.thumbnail}>
-                  <img src={recipe.recipeImage.fluid.src}></img>
+            <div className={recipeStyles.mobileHeader}>
+              <div className={recipeStyles.header}>
+                <div className={recipeStyles.headerContent}>
+                  <div className={recipeStyles.thumbnail}>
+                    <img src={recipe.recipeImage.fluid.src}></img>
+                  </div>
+                  <div className={recipeStyles.title}>
+                    <p className={recipeStyles.type}>{recipe.recipeType}</p>
+                    <h1>{recipe.recipeName}</h1>
+                    <p style={{lineHeight: '1.5rem'}}>{recipe.recipeDescription}</p>
+                  </div>
                 </div>
-                <div className={recipeStyles.title}>
-                  <p className={recipeStyles.type}>{recipe.recipeType}</p>
-                  <h1>{recipe.recipeName}</h1>
-                  <p style={{lineHeight: '1.5rem'}}>{recipe.recipeDescription}</p>
-                </div>
+              </div>
+              <div className={recipeStyles.mobileMenu}>
+                <button className={mobileSelected === 0 ? recipeStyles.selectedMenu : ""} onClick={() => this.setState({mobileSelected: 0})}>
+                  <h2>Ingredients</h2>
+                </button>
+                <button className={mobileSelected === 1 ? recipeStyles.selectedMenu : ""} onClick={() => this.setState({mobileSelected: 1})}>
+                  <h2>Steps</h2>
+                </button>
               </div>
             </div>
             <div className={recipeStyles.main}>
-              <div className={recipeStyles.ingredients}>
-                  <h2>Ingredients</h2>
-                  <div>{this.ingredients}</div>
-              </div>
-              <div className={recipeStyles.stepWrapper}>
-                <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
-                  {steps}
+              <div className={mobileSelected === 1 ? recipeStyles.hidden : recipeStyles.selected}>
+                <div className={recipeStyles.ingredients}>
+                    <h2>Ingredients</h2>
+                    <div>{this.ingredients}</div>
                 </div>
-                {/*<div className={recipeStyles.recipeImage}>
-                  {images}
-                </div>*/}
+              </div>
+              <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected}>
+                <div className={recipeStyles.stepWrapper}>
+                  <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
+                    {steps}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
