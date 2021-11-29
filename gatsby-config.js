@@ -30,5 +30,11 @@ module.exports = {
               downloadLocal: true,
             },
         },
+        {
+          resolve: `gatsby-plugin-manifest`,
+          options: {
+            icon: `src/images/logo2.png`, // This path is relative to the root of the site.
+          },
+        },
     ]
 }
