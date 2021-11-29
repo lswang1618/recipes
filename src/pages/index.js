@@ -78,7 +78,7 @@ class Home extends Component {
 
     componentDidMount() {
       this.setState({
-        width: Math.min(450, window.innerWidth > 757 ? (window.innerWidth - 504) * 0.6 : window.innerWidth * 0.7)
+        width: Math.min(450, window.innerWidth > 757 ? (window.innerWidth - 504) * 0.6 : window.innerWidth * 0.6)
       })
 
       const script = document.createElement('script');
@@ -126,7 +126,10 @@ class Home extends Component {
                                 <circle cx="175" cy="175" r="150" fill="none"/>
                                 <g>
                                     <use xlinkHref="#circlePath" fill="none"/>
-                                    <text fill="#000" style={{fontFamily: "SFPro"}}>
+                                    <text fill="#FCFE00" style={{fontFamily: "SFPro", strokeWidth: 5, stroke: "#FCFE00"}} >
+                                        <textPath xlinkHref="#circlePath">tasty Chinese cooking 😋</textPath>
+                                    </text>
+                                    <text fill="#000" style={{fontFamily: "SFPro"}} >
                                         <textPath xlinkHref="#circlePath">tasty Chinese cooking 😋</textPath>
                                     </text>
                                 </g>

@@ -34,7 +34,6 @@
 
 .mainThumbnail:hover .title {
     animation: mainRotate 5s linear infinite;
-    transform: rotate(20deg);
 }
 
 .mainContent {
@@ -44,30 +43,7 @@
 .title {
     position: absolute; 
     transition: 0.5s all linear;
-    text-shadow: 2px 2px 0 #FCFE00,
-        -2px 2px 0 #FCFE00,
-        2px -2px 0 #FCFE00,
-        -2px -2px 0 #FCFE00,
-        0px 2px 0 #FCFE00,
-        0px -2px 0 #FCFE00,
-        -2px 0px 0 #FCFE00,
-        2px 0px 0 #FCFE00,
-        4px 4px 0 #FCFE00,
-        -4px 4px 0 #FCFE00,
-        4px -4px 0 #FCFE00,
-        -4px -4px 0 #FCFE00,
-        0px 4px 0 #FCFE00,
-        0px -4px 0 #FCFE00,
-        -4px 0px 0 #FCFE00,
-        4px 0px 0 #FCFE00,
-        2px 4px 0 #FCFE00,
-        -2px 4px 0 #FCFE00,
-        2px -4px 0 #FCFE00,
-        -2px -4px 0 #FCFE00,
-        4px 2px 0 #FCFE00,
-        -4px 2px 0 #FCFE00,
-        4px -2px 0 #FCFE00,
-        -4px -2px 0 #FCFE00;
+    transform: rotate(20deg);
 }
 
 .text {
