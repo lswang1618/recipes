@@ -12,6 +12,7 @@ class Lightbox extends Component {
     }
   }
 
+
   render() {
     const { showLightbox } = this.state
 
