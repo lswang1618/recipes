@@ -18,7 +18,7 @@
     color: white;
     font-size: 2rem;
     position: absolute;
-    left: -10%;
+    left: -11%;
     top: 18px;
     text-decoration:none;
 }
@@ -235,6 +235,7 @@
 
     .ingredients, .stepWrapper {
         width: 100%;
+        margin-top: 0;
     }
 
     .ingredients { 
@@ -244,6 +245,23 @@
 
     .stepWrapper {
         margin-left: 0;
+    }
+
+    .stepWrapper h2 {
+        margin: 1rem 0;
+    }
+
+    .stepWrapper ol {
+        padding-inline-start: 0;
+    }
+
+    .stepWrapper li {
+        display: block;
+        margin-bottom: 2rem;
+    }
+
+    .stepWrapper li div {
+        margin-top: -10px;
     }
 
     /* .ingredients h2, .stepWrapper h2 {
