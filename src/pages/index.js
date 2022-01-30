@@ -8,6 +8,7 @@ import get from 'lodash/get'
 
 import logo2 from "../images/logo2.png"
 import profile from "../images/profile.jpg"
+import basi from "../images/basi.gif"
 
 export const query = graphql`
   query {
@@ -176,7 +177,12 @@ class Home extends Component {
                 <div className={homeStyles.bio}>
                   <div style={{position: 'relative', margin: '2rem 0 0', height: 'max-content'}}>
                     <div className={homeStyles.bioImageBackground}></div>
-                    <img className={homeStyles.bioImage} src={profile} />
+                    <img 
+                      className={homeStyles.bioImage} 
+                      src={profile} 
+                      onMouseOver={e => (e.currentTarget.src = basi)}
+                      onMouseOut={e => (e.currentTarget.src = profile)}
+                    />
                   </div>
                   <div style={{color: "white"}}>
                     <h1>Welcome! 👋🏻</h1>

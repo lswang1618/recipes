@@ -149,8 +149,10 @@
 }
 
 .bioImage {
-    width: 100%;
-    max-width: 300px;
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    background-color: white;
     position: relative;
     z-index: 1;
     border-radius: 20px;
@@ -167,10 +169,6 @@
     left: -20px;
     background-color: #FCFE00;
     border-radius: 20px;
-}
-
-.bioImage:hover {
-    background: url("../images/basi.gif")
 }
 
 .topFive {
@@ -269,6 +267,12 @@
 @media screen and (min-width: 1200px) {
     .previews {
         width: 756px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .bio {
+        display: block;
     }
 }
 
