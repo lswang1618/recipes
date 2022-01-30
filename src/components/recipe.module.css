@@ -19,7 +19,7 @@
     font-size: 2rem;
     position: absolute;
     left: -10%;
-    top: 15px;
+    top: 18px;
 }
 
 .back:hover {
@@ -49,7 +49,15 @@
     color: white;
     width: calc(62% - 25px);
     min-width: 300px;
-    margin-top: 15px;
+    margin: 15px 0;
+}
+
+.title h1 {
+    margin: 10px 0;
+}
+
+.title p {
+    margin: 5px 0;
 }
 
 .type {
@@ -63,14 +71,14 @@
 .main {
     width: 80%;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0 auto 2rem;
     display: grid;
     grid-auto-flow: column;
     height: 100vh;
     overflow: hidden;
 }
 
-.hidden {
+.hidden, .selected {
     overflow: scroll;
 }
 
@@ -204,12 +212,17 @@
         width: max-content;
     }
 
+    .main {
+        overflow: visible;
+    }
+
     .hidden {
         display: none;
     }
 
     .selected { 
         display: block;
+        overflow: visible;
     }
 
     .thumbnail {
@@ -228,7 +241,11 @@
         position: inherit;
     }
 
-    .ingredients h2, .stepWrapper h2 {
-        display: none;
+    .stepWrapper {
+        margin-left: 0;
     }
+
+    /* .ingredients h2, .stepWrapper h2 {
+        display: none;
+    } */
 }
