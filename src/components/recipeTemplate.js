@@ -135,6 +135,8 @@ class RecipeTemplate extends React.Component {
                   </div>
                 </div>
               </div>
+            </div>
+            <div style={{borderBottom: '2px solid #383942', position: 'sticky', top: '0'}}>
               <div className={recipeStyles.mobileMenu}>
                 <button className={mobileSelected === 0 ? recipeStyles.selectedMenu : ""} onClick={() => this.setState({mobileSelected: 0})}>
                   <h2>Ingredients</h2>

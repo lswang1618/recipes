@@ -19,6 +19,7 @@ export const query = graphql`
           recipeDescription
           slug
           postedDate
+          recipeId
           recipeImage {
             fixed(width: 300) {
                 ...GatsbyContentfulFixed_tracedSVG
@@ -60,10 +61,10 @@ const RecipePreview = ({recipe}) => {
 }
 
 const favorites = {
-  lily: [6, 11, 10, 8, 5],
-  larry: [14, 4, 12, 9, 6],
-  lisa: [13, 14, 8, 4, 11],
-  shang: [9, 8, 7, 6, 5]
+  lily: [11, 12, 14, 3, 13],
+  larry: [2, 7, 16, 4, 11],
+  lisa: [15, 2, 3, 7, 12],
+  shang: [9, 13, 8, 5, 15]
 }
 
 class Home extends Component {
@@ -85,6 +86,21 @@ class Home extends Component {
       script.text = `!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/d404bc6e09bd407cfc65ac11b/546f76809e0d3266944641052.js");`;
       script.async = true;
       document.body.appendChild(script);
+    }
+
+    getIndexes(indexList, recipes) {
+      var list = [];
+      console.log(recipes);
+      for (var i=0; i<5; i++) {
+        var index = 0;
+        while (recipes[index].node.recipeId !== indexList[i]) {
+          index += 1
+        }
+
+        list.push(index);
+      }
+
+      return list;
     }
 
     render() {
@@ -189,7 +205,7 @@ class Home extends Component {
                     
                     <div style={{overflow: 'scroll', marginTop: '20px'}}>
                       <div className={homeStyles.carousel}>
-                        {favorites[topFive].map((val, i) => (<div>
+                        {this.getIndexes(favorites[topFive], recipes).map((val, i) => (<div>
                           <Link to={`/recipes/${recipes[val].node.slug}`} style={{textDecoration: 'none', color: 'black', width: '264px'}} className={homeStyles.thumbnail}>
                               <div className={homeStyles.recipePreview} style={{width: '180px'}}>
                                   <div>
