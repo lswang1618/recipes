@@ -122,6 +122,9 @@ class RecipeTemplate extends React.Component {
             <div className={recipeStyles.mobileHeader}>
               <div className={recipeStyles.header}>
                 <div className={recipeStyles.headerContent}>
+                  <a href="/" className={recipeStyles.back}>
+                    <i class="ri-arrow-left-line"></i>
+                  </a>
                   <div className={recipeStyles.thumbnail}>
                     <img src={recipe.recipeImage.fluid.src}></img>
                   </div>

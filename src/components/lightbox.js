@@ -25,10 +25,10 @@ class Lightbox extends Component {
                     title={title ? title['en-US'] : null}
                     alt={description ? description['en-US'] : null}
                     src={file['en-US'].url}
-                    style={{width: '60%', height: '100%', cursor: 'pointer'}}
+                    style={{width: '350px', maxWidth: '100%', height: '100%', cursor: 'pointer', display: 'block'}}
                     onClick={() => this.setState({ showLightbox: true })}
                 />
-                : <video controls autoPlay muted playsInline style={{ width: '90%', height: '100%', maxWidth: '300px', cursor: 'pointer'}} onClick={() => this.setState({ showLightbox: true })}>
+                : <video controls autoPlay muted playsInline style={{ width: '350px', height: '100%', maxWidth: '100%', cursor: 'pointer'}} onClick={() => this.setState({ showLightbox: true })}>
                     <source src={file['en-US'].url} />
                 </video>
             }
