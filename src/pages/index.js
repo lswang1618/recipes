@@ -60,9 +60,9 @@ const RecipePreview = ({recipe}) => {
 }
 
 const favorites = {
-  lily: [0, 1, 2, 3, 4],
-  larry: [2, 4, 5, 6, 7],
-  lisa: [3, 4, 5, 6, 7],
+  lily: [6, 11, 10, 8, 5],
+  larry: [14, 4, 12, 9, 6],
+  lisa: [13, 14, 8, 4, 11],
   shang: [9, 8, 7, 6, 5]
 }
 

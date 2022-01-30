@@ -3,7 +3,6 @@
     height: 90vh;
     display: flex;
     position: relative;
-    overflow: scroll;
 }
 
 .mainDish {
@@ -25,7 +24,7 @@
 
 .thumbnails {
     background-color: #E3DAFF;
-    height: max-content;
+    overflow: scroll;
 }
 
 .thumbnail:hover .bg, .mainThumbnail:hover .bg {
@@ -84,11 +83,11 @@
 }
 
 .previews {
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
     border: 1px solid black;
     width: 504px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .previews li {
@@ -253,6 +252,7 @@
 @media screen and (max-width: 758px) {
     .wrapper {
         display: block;
+        height: 100%;
     }
 
     .mainDish {
@@ -262,6 +262,13 @@
 
     .previews {
         width: auto;
+        flex-wrap: nowrap;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .previews {
+        width: 756px;
     }
 }
 
