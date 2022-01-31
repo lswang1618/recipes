@@ -85,7 +85,6 @@
 .previews {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid black;
     width: 504px;
     justify-content: flex-start;
 }
@@ -259,7 +258,6 @@
     }
 
     .previews {
-        width: auto;
         flex-wrap: nowrap;
     }
 }
