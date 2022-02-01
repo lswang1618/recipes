@@ -83,10 +83,43 @@ class RecipeTemplate extends React.Component {
 
     this.recipeSteps = React.createRef();
     this.ingredients = [];
+
+    this.mobileHeaderRef = React.createRef();
+    this.mainRef = React.createRef();
+    this.ingredientsRef = React.createRef();
+    this.stepWrapperRef = React.createRef();
+
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     window.eval(script);
+
+    if (window.innerWidth <= 600) {
+      window.addEventListener("scroll", this.handleScroll);
+    }
+    
+  }
+
+  componentWillUnmount() {
+    if (window.innerWidth <= 600) {
+      window.removeEventListener("scroll", this.handleScroll);
+    }
+  }
+
+  handleScroll() {
+    if(this.mobileHeaderRef && this.mobileHeaderRef.current.getBoundingClientRect().y === 0) {
+      this.ingredientsRef.current.style.overflow = "scroll";
+      this.stepWrapperRef.current.style.overflow = "scroll";
+      this.mainRef.current.style.height = "100vh";
+    } else if (this.mobileHeaderRef.current.getBoundingClientRect().y !== 0){
+      this.ingredientsRef.current.scrollTo(0, 0)
+      this.stepWrapperRef.current.scrollTo(0, 0)
+      
+      this.ingredientsRef.current.style.overflow = "hidden";
+      this.stepWrapperRef.current.style.overflow = "hidden";
+      this.mainRef.current.style.height = "";
+    }
   }
 
   renderIngredients(list) {
@@ -136,7 +169,7 @@ class RecipeTemplate extends React.Component {
                 </div>
               </div>
             </div>
-            <div style={{borderBottom: '2px solid #383942', position: 'sticky', top: '0'}}>
+            <div ref={this.mobileHeaderRef} className={recipeStyles.tabs}>
               <div className={recipeStyles.mobileMenu}>
                 <button className={mobileSelected === 0 ? recipeStyles.selectedMenu : ""} onClick={() => this.setState({mobileSelected: 0})}>
                   <h2>Ingredients</h2>
@@ -146,14 +179,14 @@ class RecipeTemplate extends React.Component {
                 </button>
               </div>
             </div>
-            <div className={recipeStyles.main}>
-              <div className={mobileSelected === 1 ? recipeStyles.hidden : recipeStyles.selected}>
+            <div className={recipeStyles.main} ref={this.mainRef}>
+              <div className={mobileSelected === 1 ? recipeStyles.hidden : recipeStyles.selected} ref={this.ingredientsRef}>
                 <div className={recipeStyles.ingredients}>
-                    <h2>Ingredients</h2>
-                    <div>{this.ingredients}</div>
+                    <h2 style={{width: '80%', margin: '1rem auto'}}>Ingredients</h2>
+                    <div style={{width: '80%', margin: '0 auto'}}>{this.ingredients}</div>
                 </div>
               </div>
-              <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected}>
+              <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected} ref={this.stepWrapperRef}>
                 <div className={recipeStyles.stepWrapper}>
                   <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
                     {steps}
