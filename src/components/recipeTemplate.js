@@ -97,7 +97,8 @@ class RecipeTemplate extends React.Component {
     if (window.innerWidth <= 600) {
       this.setState({ 
         mobile: true,
-        marginTop: this.mobileHeaderRef.current.getBoundingClientRect().bottom
+        oldPos: "x",
+        startingPos: this.ingredientsRef.current.getBoundingClientRect().top - 63,
       })
     }
 
@@ -141,13 +142,33 @@ class RecipeTemplate extends React.Component {
     this.ingredients = ingredients;
   }
 
+  updateTab(newTab) {
+    var oldPos = 0;
+
+    if (newTab === 0) {
+      oldPos = this.stepWrapperRef.current.getBoundingClientRect().top;
+    } else if (newTab === 1) {
+      oldPos = this.ingredientsRef.current.getBoundingClientRect().top;
+    }
+
+    this.setState({mobileSelected: newTab}, () => {
+      if (this.state.oldPos === "x" && oldPos <= 0) {
+        window.scrollTo(0, this.state.startingPos);
+        this.setState({ oldPos: this.state.startingPos - oldPos + 63 });
+      } else {
+        window.scrollTo(0, this.state.oldPos);
+        this.setState({ oldPos: this.state.startingPos - oldPos + 63 });
+      } 
+    });
+  }
+
   render() {
     refs = [];
     const recipe = get(this.props, 'data.contentfulRecipe');
     this.renderIngredients(recipe.recipeIngredients.ingredients);
     const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
 
-    const { mobileSelected, mobile, marginTop} = this.state;
+    const { mobileSelected, mobile} = this.state;
     
     return (
       <div location={this.props.location}>
@@ -173,18 +194,18 @@ class RecipeTemplate extends React.Component {
             </div>
             <div ref={this.mobileHeaderRef} className={recipeStyles.tabs}>
               <div className={recipeStyles.mobileMenu}>
-                <button className={mobileSelected === 0 ? recipeStyles.selectedMenu : ""} onClick={() => this.setState({mobileSelected: 0})}>
+                <button className={mobileSelected === 0 ? recipeStyles.selectedMenu : ""} onClick={() => this.updateTab(0)}>
                   <h2>Ingredients</h2>
                 </button>
-                <button className={mobileSelected === 1 ? recipeStyles.selectedMenu : ""} onClick={() => this.setState({mobileSelected: 1})}>
+                <button className={mobileSelected === 1 ? recipeStyles.selectedMenu : ""} onClick={() => this.updateTab(1)}>
                   <h2>Steps</h2>
                 </button>
               </div>
             </div>
             { mobile 
                 ? <>
-                    <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected} style={{position: 'sticky', top: '63px', height: '1px'}}>
-                      <div ref={this.stepWrapperRef} style={{overflow: "scroll", position: 'absolute', top: 0, left: 0, height: 'calc(100vh - 63px)'}}>
+                    <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected} ref={this.stepWrapperRef} style={{overflow: 'visible'}}>
+                      <div>
                         <div className={recipeStyles.stepWrapper}>
                           <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
                             {steps}

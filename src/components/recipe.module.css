@@ -247,12 +247,12 @@
     } */
 
     .hidden {
-        opacity: 0;
+        display: none;
         pointer-events: none;
     }
 
     .selected { 
-        opacity: 1;
+        display: block;
         pointer-events: auto;
     }
 
