@@ -76,6 +76,10 @@ class Home extends Component {
           width: '0px',
           topFive: 'lily'
         }
+
+        this.recipes = get(this, 'props.data.allContentfulRecipe.edges');
+        this.main = Math.floor(Math.random() * this.recipes.length);
+        this.mainRecipe = this.recipes[this.main].node;
     }
 
     componentDidMount() {
@@ -91,7 +95,6 @@ class Home extends Component {
 
     getIndexes(indexList, recipes) {
       var list = [];
-      console.log(recipes);
       for (var i=0; i<5; i++) {
         var index = 0;
         while (recipes[index].node.recipeId !== indexList[i]) {
@@ -105,10 +108,6 @@ class Home extends Component {
     }
 
     render() {
-        const recipes = get(this, 'props.data.allContentfulRecipe.edges');
-        const main = Math.floor(Math.random() * recipes.length);
-        const mainRecipe = recipes[main].node;
-
         const { width, topFive } = this.state;
 
         return(<div>
@@ -118,13 +117,13 @@ class Home extends Component {
                   <div>
                     <img src={logo2} style={{width: '75px', marginTop: '10px', marginLeft: '10px'}}/>
                   </div>
-                  <Link to={`/recipes/${mainRecipe.slug}`} className={homeStyles.mainThumbnail}>
+                  <Link to={`/recipes/${this.mainRecipe.slug}`} className={homeStyles.mainThumbnail}>
                       <div style={{width: `${width}px`, margin: '0 auto'}}>
                           <div style={{position: 'relative'}}>
                               <div style={{position: 'relative', width: `${width}px`}}>
                                 <ImgBackground width={width} color="#FCFE00"/>
                                 <div className={homeStyles.previewImage}>
-                                    <Img fixed={mainRecipe.recipeImage.fixed} style={{
+                                    <Img fixed={this.mainRecipe.recipeImage.fixed} style={{
                                         width: `${width * 0.8}px`,
                                         height: `${width * 0.8}px`, 
                                         display: 'inline-block',
@@ -157,8 +156,8 @@ class Home extends Component {
                 </div>
                 <div className={homeStyles.thumbnails}>
                   <div className={homeStyles.previews}>
-                      {recipes.map(({ node }, i) => {
-                        if (i === main) { return <></> }
+                      {this.recipes.map(({ node }, i) => {
+                        if (i === this.main) { return <></> }
                         return (
                           <li key={node.slug} style={{marginBottom: 0}}>
                             <RecipePreview recipe={node} />
@@ -211,14 +210,14 @@ class Home extends Component {
                     
                     <div style={{overflow: 'scroll', marginTop: '20px'}}>
                       <div className={homeStyles.carousel}>
-                        {this.getIndexes(favorites[topFive], recipes).map((val, i) => (<div>
-                          <Link to={`/recipes/${recipes[val].node.slug}`} style={{textDecoration: 'none', color: 'black', width: '264px'}} className={homeStyles.thumbnail}>
+                        {this.getIndexes(favorites[topFive], this.recipes).map((val, i) => (<div>
+                          <Link to={`/recipes/${this.recipes[val].node.slug}`} style={{textDecoration: 'none', color: 'black', width: '264px'}} className={homeStyles.thumbnail}>
                               <div className={homeStyles.recipePreview} style={{width: '180px'}}>
                                   <div>
                                       <div style={{position: 'relative', margin: '0 auto', width: 'max-content'}}>
                                         <ImgBackground width={150} color="#C589E8"/>
                                         <div className={homeStyles.previewImage}>
-                                            <Img fixed={recipes[val].node.recipeImage.fixed} style={{
+                                            <Img fixed={this.recipes[val].node.recipeImage.fixed} style={{
                                                 width: '110px', 
                                                 height: '110px',
                                                 display: 'inline-block',
@@ -233,7 +232,7 @@ class Home extends Component {
                                         <div style={{backgroundColor: "#C589E8", borderRadius: '20px', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: "white", alignSelf: 'baseline'}}>
                                           {i+1}
                                         </div>
-                                        {recipes[val].node.recipeName}
+                                        {this.recipes[val].node.recipeName}
                                       </div>
                                   </div>
                               </div>

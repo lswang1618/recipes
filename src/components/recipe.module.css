@@ -221,10 +221,11 @@
     .tabs {
         border-bottom: 2px solid #383942;
         position: sticky; 
-        top: 0; 
+        top: -1px;
+        padding-top: 1px; 
         background-color: #f7f7f7; 
         z-index: 2; 
-        height: 64px;
+        height: 63px;
     }
 
     .selectedMenu h2 {
@@ -251,10 +252,12 @@
 
     .hidden {
         opacity: 0;
+        pointer-events: none;
     }
 
     .selected { 
         opacity: 1;
+        pointer-events: auto;
     }
 
     .thumbnail {
@@ -274,7 +277,6 @@
     .ingredients { 
         border-right: none;
         max-width: 100%;
-        position: inherit;
     }
 
     .stepWrapper {
@@ -294,7 +296,7 @@
         margin-bottom: 2rem;
     }
 
-    .recipeText {
+    .recipeText, .ingredientWrapper {
         width: 80%;
         margin: 0 auto;
         display: block;
