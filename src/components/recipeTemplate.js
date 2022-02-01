@@ -78,7 +78,8 @@ class RecipeTemplate extends React.Component {
     super(props);
 
     this.state = {
-      mobileSelected: 0
+      mobileSelected: 0,
+      mobile: false
     }
 
     this.recipeSteps = React.createRef();
@@ -94,25 +95,32 @@ class RecipeTemplate extends React.Component {
     window.eval(script);
 
     if (window.innerWidth <= 600) {
-      this.observer = new IntersectionObserver( 
-        ([e]) => {
-          if (e.intersectionRatio < 1 && this.mainRef.current) {
-            this.mainRef.current.style.height = "100vh";
-            this.ingredientsRef.current.style.overflow = "scroll";
-            this.stepWrapperRef.current.style.overflow = "scroll";
-          } else if (this.mainRef.current) {
-              this.ingredientsRef.current.scrollTo(0, 0);
-  
-              this.mainRef.current.style.height = "";
-              this.ingredientsRef.current.style.overflow = "hidden";
-              this.stepWrapperRef.current.style.overflow = "hidden";
-          }
-        },
-        { threshold: [1] }
-      );
-      
-      this.observer.observe(this.mobileHeaderRef.current)
+      this.setState({ 
+        mobile: true,
+        marginTop: this.mobileHeaderRef.current.getBoundingClientRect().bottom
+      })
     }
+
+    // if (window.innerWidth <= 600) {
+    //   this.observer = new IntersectionObserver( 
+    //     ([e]) => {
+    //       if (e.intersectionRatio < 1 && this.mainRef.current) {
+    //         this.mainRef.current.style.height = "100vh";
+    //         this.ingredientsRef.current.style.overflow = "scroll";
+    //         this.stepWrapperRef.current.style.overflow = "scroll";
+    //       } else if (this.mainRef.current) {
+    //           this.ingredientsRef.current.scrollTo(0, 0);
+  
+    //           this.mainRef.current.style.height = "";
+    //           this.ingredientsRef.current.style.overflow = "hidden";
+    //           this.stepWrapperRef.current.style.overflow = "hidden";
+    //       }
+    //     },
+    //     { threshold: [1] }
+    //   );
+
+    //   this.observer.observe(this.mobileHeaderRef.current)
+    // }
     
   }
 
@@ -139,7 +147,7 @@ class RecipeTemplate extends React.Component {
     this.renderIngredients(recipe.recipeIngredients.ingredients);
     const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
 
-    const { mobileSelected } = this.state;
+    const { mobileSelected, mobile, marginTop} = this.state;
     
     return (
       <div location={this.props.location}>
@@ -173,23 +181,45 @@ class RecipeTemplate extends React.Component {
                 </button>
               </div>
             </div>
-            <div className={recipeStyles.main} ref={this.mainRef}>
-              <div className={mobileSelected === 1 ? recipeStyles.hidden : recipeStyles.selected} ref={this.ingredientsRef}>
-                <div className={recipeStyles.ingredients}>
-                    <div className={recipeStyles.ingredientWrapper} style={{paddingBottom: '2rem'}}>
-                      <h2>Ingredients</h2>
-                      <div>{this.ingredients}</div>
+            { mobile 
+                ? <>
+                    <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected} style={{position: 'sticky', top: '63px', height: '1px'}}>
+                      <div ref={this.stepWrapperRef} style={{overflow: "scroll", position: 'absolute', top: 0, left: 0, height: 'calc(100vh - 63px)'}}>
+                        <div className={recipeStyles.stepWrapper}>
+                          <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
+                            {steps}
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    <div className={mobileSelected === 1 ? recipeStyles.hidden : recipeStyles.selected} ref={this.ingredientsRef} style={{overflow: "visible"}}>
+                      <div className={recipeStyles.ingredients}>
+                          <div className={recipeStyles.ingredientWrapper} style={{paddingBottom: '2rem'}}>
+                            <h2>Ingredients</h2>
+                            <div>{this.ingredients}</div>
+                          </div>
+                      </div>
+                    </div>
+                </>
+                : <div className={recipeStyles.main} ref={this.mainRef}>
+                <div ref={this.ingredientsRef} style={{overflow: "scroll"}}>
+                  <div className={recipeStyles.ingredients}>
+                      <div className={recipeStyles.ingredientWrapper} style={{paddingBottom: '2rem'}}>
+                        <h2>Ingredients</h2>
+                        <div>{this.ingredients}</div>
+                      </div>
+                  </div>
                 </div>
-              </div>
-              <div className={mobileSelected === 0 ? recipeStyles.hidden : recipeStyles.selected} ref={this.stepWrapperRef}>
-                <div className={recipeStyles.stepWrapper}>
-                  <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
-                    {steps}
+                <div ref={this.stepWrapperRef} style={{overflow: "scroll"}}>
+                  <div className={recipeStyles.stepWrapper}>
+                    <div ref={this.recipeSteps} className={recipeStyles.recipeText}>
+                      {steps}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            }
+            
           </div>
         </div>
       </div>
