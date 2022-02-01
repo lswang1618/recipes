@@ -88,29 +88,29 @@ class RecipeTemplate extends React.Component {
     this.mainRef = React.createRef();
     this.ingredientsRef = React.createRef();
     this.stepWrapperRef = React.createRef();
-
-    this.observer = new IntersectionObserver( 
-      ([e]) => {
-        if (e.intersectionRatio < 1 && this.mainRef.current) {
-          this.mainRef.current.style.height = "100vh";
-          this.ingredientsRef.current.style.overflow = "scroll";
-          this.stepWrapperRef.current.style.overflow = "scroll";
-        } else if (this.mainRef.current) {
-            this.ingredientsRef.current.scrollTo(0, 0);
-
-            this.mainRef.current.style.height = "";
-            this.ingredientsRef.current.style.overflow = "hidden";
-            this.stepWrapperRef.current.style.overflow = "hidden";
-        }
-      },
-      { threshold: [1] }
-    );
   }
 
   componentDidMount() {
     window.eval(script);
 
     if (window.innerWidth <= 600) {
+      this.observer = new IntersectionObserver( 
+        ([e]) => {
+          if (e.intersectionRatio < 1 && this.mainRef.current) {
+            this.mainRef.current.style.height = "100vh";
+            this.ingredientsRef.current.style.overflow = "scroll";
+            this.stepWrapperRef.current.style.overflow = "scroll";
+          } else if (this.mainRef.current) {
+              this.ingredientsRef.current.scrollTo(0, 0);
+  
+              this.mainRef.current.style.height = "";
+              this.ingredientsRef.current.style.overflow = "hidden";
+              this.stepWrapperRef.current.style.overflow = "hidden";
+          }
+        },
+        { threshold: [1] }
+      );
+      
       this.observer.observe(this.mobileHeaderRef.current)
     }
     
