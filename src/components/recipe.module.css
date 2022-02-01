@@ -132,6 +132,10 @@
     overflow: scroll;
 }
 
+.stepWrapper li {
+    margin-bottom: 1rem;
+}
+
 .recipeText {
     display: inline-block;
     max-width: 100%;
