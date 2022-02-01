@@ -187,7 +187,7 @@ class Home extends Component {
                   <div style={{color: "white"}}>
                     <h1>Welcome! 👋🏻</h1>
                     <h3>I'm Lily (刘艳竹)</h3>
-                    <p>Selecting nutritious foods to create delicious dishes is a long tradition in my family. Both my grandma and my mom passed down recipes and techniques for picking fresh foods and combining them in old and new ways to make tasty dishes.</p>
+                    <p style={{marginBottom: '1rem'}}>Selecting nutritious foods to create delicious dishes is a long tradition in my family. Both my grandma and my mom passed down recipes and techniques for picking fresh foods and combining them in old and new ways to make tasty dishes.</p>
                       
                     <p>As a family project, we're sharing these recipes through this website. I hope we can help you create a space to explore the fun and creativity of cooking Chinese dishes.</p>
                   </div>
