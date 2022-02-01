@@ -98,7 +98,7 @@ class RecipeTemplate extends React.Component {
       this.setState({ 
         mobile: true,
         oldPos: "x",
-        startingPos: this.ingredientsRef.current.getBoundingClientRect().top - 63,
+        startingPos: this.mobileHeaderRef.current.getBoundingClientRect().bottom - this.mobileHeaderRef.current.getBoundingClientRect().height,
       })
     }
 
@@ -143,21 +143,33 @@ class RecipeTemplate extends React.Component {
   }
 
   updateTab(newTab) {
+    if (newTab === this.state.mobileSelected) { return }
+
+    var userAgent = window.navigator.userAgent;
+    var offset = 0;
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+      offset = this.mobileHeaderRef.current.getBoundingClientRect().height;
+    }
+
+    console.log(userAgent)
+
     var oldPos = 0;
 
     if (newTab === 0) {
-      oldPos = this.stepWrapperRef.current.getBoundingClientRect().top;
+      oldPos = this.stepWrapperRef.current.getBoundingClientRect().top - offset;
     } else if (newTab === 1) {
-      oldPos = this.ingredientsRef.current.getBoundingClientRect().top;
+      oldPos = this.ingredientsRef.current.getBoundingClientRect().top - offset;
     }
 
     this.setState({mobileSelected: newTab}, () => {
       if (this.state.oldPos === "x" && oldPos <= 0) {
-        window.scrollTo(0, this.state.startingPos);
-        this.setState({ oldPos: this.state.startingPos - oldPos + 63 });
-      } else {
+        window.scrollTo(0, this.state.startingPos + offset);
+
+        this.setState({ oldPos: this.state.startingPos - oldPos + this.mobileHeaderRef.current.getBoundingClientRect().height});
+      } else if (this.state.oldPos !== "x") {
         window.scrollTo(0, this.state.oldPos);
-        this.setState({ oldPos: this.state.startingPos - oldPos + 63 });
+
+        this.setState({ oldPos: this.state.startingPos - oldPos + this.mobileHeaderRef.current.getBoundingClientRect().height });
       } 
     });
   }
