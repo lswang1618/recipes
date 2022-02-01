@@ -148,10 +148,8 @@ class RecipeTemplate extends React.Component {
     var userAgent = window.navigator.userAgent;
     var offset = 0;
     if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
-      offset = this.mobileHeaderRef.current.getBoundingClientRect().height;
+      offset = 0;
     }
-
-    console.log(userAgent)
 
     var oldPos = 0;
 
