@@ -86,11 +86,6 @@ class Home extends Component {
       this.setState({
         width: Math.min(450, window.innerWidth > 757 ? (window.innerWidth - 504) * 0.6 : window.innerWidth * 0.6)
       })
-
-      const script = document.createElement('script');
-      script.text = `!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/d404bc6e09bd407cfc65ac11b/546f76809e0d3266944641052.js");`;
-      script.async = true;
-      document.body.appendChild(script);
     }
 
     getIndexes(indexList, recipes) {
