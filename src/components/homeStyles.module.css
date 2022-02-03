@@ -5,6 +5,26 @@
     position: relative;
 }
 
+.subscribe {
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    right: 10px; 
+    color: white;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+.subscribe h4 {
+    margin: 0 auto;
+}
+
+.subscribe:hover {
+    color: #ED3359;
+    background-color: white;
+}
+
 .mainDish {
     background-color: #ED3359;
     position: sticky;
@@ -19,7 +39,7 @@
     color: black;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-40%);
 }
 
 .thumbnails {

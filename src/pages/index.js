@@ -114,8 +114,11 @@ class Home extends Component {
             {/* <Header /> */}
               <div className={homeStyles.wrapper}>
                 <div className={homeStyles.mainDish}>
-                  <div>
+                  <div style={{position: 'relative'}}>
                     <img src={logo2} style={{width: '75px', marginTop: '10px', marginLeft: '10px'}}/>
+                    <a href="https://88chinesedishes.substack.com/" target="_blank">
+                      <button className={homeStyles.subscribe}><h4>Subscribe for new recipes!</h4></button>
+                    </a>
                   </div>
                   <Link to={`/recipes/${this.mainRecipe.slug}`} className={homeStyles.mainThumbnail}>
                       <div style={{width: `${width}px`, margin: '0 auto'}}>
