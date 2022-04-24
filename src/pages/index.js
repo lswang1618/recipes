@@ -156,7 +156,7 @@ class Home extends Component {
                 <div className={homeStyles.thumbnails}>
                   <div className={homeStyles.previews}>
                       {this.recipes.map(({ node }, i) => {
-                        if (i === this.main) { return <></> }
+                        // if (i === this.main) { return <></> }
                         return (
                           <li key={node.slug} style={{marginBottom: 0}}>
                             <RecipePreview recipe={node} />
