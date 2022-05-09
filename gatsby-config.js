@@ -49,8 +49,6 @@ module.exports = {
               head: true,
               // Setting this parameter is also optional
               respectDNT: true,
-              // Avoids sending pageview hits from custom paths
-              exclude: ["/preview/**", "/do-not-track/me/too/"],
               // Defaults to https://www.googletagmanager.com
               origin: "https://www.88chinesedishes.com",
             },
