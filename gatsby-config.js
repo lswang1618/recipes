@@ -46,11 +46,7 @@ module.exports = {
             // This object is used for configuration specific to this plugin
             pluginConfig: {
               // Puts tracking script in the head instead of the body
-              head: true,
-              // Setting this parameter is also optional
-              respectDNT: true,
-              // Defaults to https://www.googletagmanager.com
-              origin: "https://www.88chinesedishes.com",
+              head: true
             },
           },
         },
