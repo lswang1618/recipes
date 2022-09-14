@@ -9,6 +9,7 @@ import get from 'lodash/get'
 import logo2 from "../images/logo2.png"
 import profile from "../images/profile.jpg"
 import basi from "../images/basi.gif"
+import SEO from "../components/seo"
 
 export const query = graphql`
   query {
@@ -108,6 +109,7 @@ class Home extends Component {
 
         return(<div>
             {/* <Header /> */}
+            <SEO title="88 Chinese Dishes" description="Easy and delicious homestyle Chinese recipes" />
               <div className={homeStyles.wrapper}>
                 <div className={homeStyles.mainDish}>
                   <div style={{position: 'relative'}}>
