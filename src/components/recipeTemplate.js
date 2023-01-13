@@ -179,8 +179,6 @@ class RecipeTemplate extends React.Component {
     const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
 
     const { mobileSelected, mobile} = this.state;
-
-    console.log(recipe);
     
     return (
       <div location={this.props.location}>
@@ -200,7 +198,7 @@ class RecipeTemplate extends React.Component {
                     <p className={recipeStyles.type}>{recipe.recipeType}</p>
                     <h1>{recipe.recipeName}</h1>
                     <p style={{lineHeight: '1.5rem'}}>{recipe.recipeDescription}</p>
-                    <p style={{lineHeight: '1.5rem'}}>{recipe.loreLink}</p>
+                    {/* <p style={{lineHeight: '1.5rem'}}>{recipe.loreLink}</p> */}
                   </div>
                 </div>
               </div>
@@ -284,6 +282,7 @@ export const pageQuery = graphql`
               ...GatsbyContentfulFluid_tracedSVG
             }
         }
+        loreLink
     }
   }
 `

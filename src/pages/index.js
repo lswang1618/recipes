@@ -18,6 +18,7 @@ export const query = graphql`
         node { 
           recipeName
           chineseName
+          pinyinName
           recipeDescription
           slug
           postedDate
@@ -53,9 +54,10 @@ const RecipePreview = ({recipe}) => {
                     </div>
                   </div>
                   <div className={homeStyles.previewText}>
-                      <h4 style={{marginBottom: '5px'}}>{recipe.recipeName}</h4>
-                      <h4 style={{marginTop: '5px'}}>{recipe.chineseName}</h4>
-                      <p className={homeStyles.previewSubtitle}>{recipe.recipeDescription}</p>
+                      <h4 style={{marginBottom: '5px', color: "#8036CB"}}>{recipe.recipeName}</h4>
+                      <h4 style={{marginTop: '5px', marginBottom: '5px'}}>{recipe.chineseName}</h4>
+                      <h4 style={{marginTop: '5px'}}>{recipe.pinyinName}</h4>
+                      <p className={homeStyles.previewSubtitle} style={{color: "#57595E", fontStyle: 'italic'}}>{recipe.recipeDescription}</p>
                   </div>
               </div>
           </div>
