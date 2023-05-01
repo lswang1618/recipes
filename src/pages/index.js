@@ -178,7 +178,7 @@ class Home extends Component {
                 </div>
                 <div style={{overflow: 'hidden', position: 'relative'}}>
                   <div className={homeStyles.search}>
-                      <i class="ri-search-line" style={{fontSize: '1.4rem', verticalAlign: 'text-bottom', marginRight: '5px'}}></i>
+                      <i class="ri-search-line" style={{color: 'black', fontSize: '1.4rem', verticalAlign: 'text-bottom', marginRight: '5px'}}></i>
                       <input
                         onChange={(e) => this.search(e.target.value.toLowerCase())} 
                       >
