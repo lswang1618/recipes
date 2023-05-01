@@ -5,6 +5,7 @@
 .header {
     background-color: #383942;
     width:100%;
+    overflow: hidden;
 }
 
 .headerContent {
