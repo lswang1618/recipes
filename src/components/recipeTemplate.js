@@ -10,6 +10,8 @@ import 'remixicon/fonts/remixicon.css'
 
 var script;
 var refs = [];
+var finalImageURL = "";
+
 const richTextOptions = {
     renderMark: {
       [MARKS.CODE]: text => {
@@ -44,7 +46,8 @@ const richTextOptions = {
                 const mimeGroup = mimeType.split('/')[0]
     
                 switch (mimeGroup) {
-                    case 'image':
+                    case 'image': 
+                      finalImageURL = file['en-US']['url'].substring(2);
                       return <Lightbox fields = {node.data.target.fields} type="image"/>
                     case 'video':
                       return <Lightbox fields = {node.data.target.fields} type="video"/>
@@ -155,13 +158,19 @@ class RecipeTemplate extends React.Component {
     const recipe = get(this.props, 'data.contentfulRecipe');
     this.renderIngredients(recipe.recipeIngredients.ingredients);
     const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
+    console.log(recipe.recipeSteps.json);
 
     const { mobileSelected, mobile} = this.state;
     
     return (
       <div location={this.props.location}>
         <div>
-          <SEO title={`${recipe.recipeName}`} description={`${recipe.recipeDescription}`} />
+          <SEO 
+            title={`${recipe.recipeName}`} 
+            description={`${recipe.recipeDescription}`} 
+            recipe={`${recipe}`}
+            finalImageURL={`${finalImageURL}`}
+          />
           <div>
             <div className={recipeStyles.mobileHeader}>
               <div className={recipeStyles.header}>

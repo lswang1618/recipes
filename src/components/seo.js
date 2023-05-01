@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title, home }) {
+function SEO({ description, lang, meta, title, home, recipe, finalImageURL }) {
   const { site, logo } = useStaticQuery(
     graphql`
       query {
@@ -21,7 +21,7 @@ function SEO({ description, lang, meta, title, home }) {
             author
           }
         }
-        logo: file(relativePath: { eq: "af.png" }) {
+        logo: file(relativePath: { eq: "logo2.png" }) {
             publicURL
         }
       }
@@ -32,26 +32,34 @@ function SEO({ description, lang, meta, title, home }) {
   const logoImgSD = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "url": "http://www.almostfun.org",
-    // "logo": "http://www.almostfun.org" + logo.publicURL
+    "url": "http://www.88chinesedishes.org"
   }
 
-  const appSD = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Almost Fun SAT",
-    "operatingSystem": "iOS",
-    "applicationCategory": "https://schema.org/EducationalApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.6",
-      "ratingCount": "19"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0"
-    }
-  }
+  const recipeSD = recipe ? {
+    "@context": "https://schema.org/",
+      "@type": "Recipe",
+      "name": recipe.recipeName,
+      "image": [
+        finalImageURL
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "88 Chinese Dishes"
+      },
+      // "datePublished": "2018-03-10",
+      "description": recipe.description,
+      // "prepTime": "PT20M",
+      // "cookTime": "PT30M",
+      // "totalTime": "PT50M",
+      "keywords": recipe.description,
+      // "recipeYield": "10",
+      "recipeCuisine": "Chinese",
+      // "aggregateRating": {
+      //   "@type": "AggregateRating",
+      //   "ratingValue": "5",
+      //   "ratingCount": "18"
+      // },
+  } : null
 
   return (
     <Helmet
@@ -96,7 +104,7 @@ function SEO({ description, lang, meta, title, home }) {
       ].concat(meta)}
     >
       {home && <script type="application/ld+json">{JSON.stringify(logoImgSD)}</script>}
-      {home && <script type="application/ld+json">{JSON.stringify(appSD)}</script>}
+      {recipe && <script type="application/ld+json">{JSON.stringify(recipeSD)}</script>}
     </Helmet>
   )
 }
