@@ -101,28 +101,6 @@ class RecipeTemplate extends React.Component {
         startingPos: this.mobileHeaderRef.current.getBoundingClientRect().bottom - this.mobileHeaderRef.current.getBoundingClientRect().height,
       })
     }
-
-    // if (window.innerWidth <= 600) {
-    //   this.observer = new IntersectionObserver( 
-    //     ([e]) => {
-    //       if (e.intersectionRatio < 1 && this.mainRef.current) {
-    //         this.mainRef.current.style.height = "100vh";
-    //         this.ingredientsRef.current.style.overflow = "scroll";
-    //         this.stepWrapperRef.current.style.overflow = "scroll";
-    //       } else if (this.mainRef.current) {
-    //           this.ingredientsRef.current.scrollTo(0, 0);
-  
-    //           this.mainRef.current.style.height = "";
-    //           this.ingredientsRef.current.style.overflow = "hidden";
-    //           this.stepWrapperRef.current.style.overflow = "hidden";
-    //       }
-    //     },
-    //     { threshold: [1] }
-    //   );
-
-    //   this.observer.observe(this.mobileHeaderRef.current)
-    // }
-    
   }
 
   renderIngredients(list) {
@@ -195,10 +173,19 @@ class RecipeTemplate extends React.Component {
                     <img src={recipe.recipeImage.fluid.src}></img>
                   </div>
                   <div className={recipeStyles.title}>
-                    <p className={recipeStyles.type}>{recipe.recipeType}</p>
+                    <div style={{display: 'flex', columnGap: "7px"}}>
+                      <p className={recipeStyles.type}>{recipe.recipeType}</p>
+                      {!recipe.loreLink
+                        ? <></>
+                        : <a href={recipe.loreLink} target="_blank" style={{textDecoration: 'none'}}>
+                          <p className={recipeStyles.read}>
+                            <i class="ri-book-read-fill" style={{fontSize: '18px', verticalAlign: 'sub'}}></i> Read About this Recipe
+                          </p>
+                        </a>
+                      }
+                    </div>
                     <h1>{recipe.recipeName}</h1>
-                    <p style={{lineHeight: '1.5rem'}}>{recipe.recipeDescription}</p>
-                    {/* <p style={{lineHeight: '1.5rem'}}>{recipe.loreLink}</p> */}
+                    <p style={{lineHeight: '1.5rem'}}>{recipe.chineseName} • {recipe.pinyinName}</p>
                   </div>
                 </div>
               </div>
@@ -283,6 +270,8 @@ export const pageQuery = graphql`
             }
         }
         loreLink
+        chineseName
+        pinyinName
     }
   }
 `

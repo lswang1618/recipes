@@ -76,12 +76,14 @@ class Home extends Component {
     constructor(props) {
         super(props);
 
+        this.recipes = get(this, 'props.data.allContentfulRecipe.edges');
+
         this.state = {
           width: '0px',
-          topFive: 'lily'
+          topFive: 'lily',
+          sortedRecipes: this.recipes
         }
 
-        this.recipes = get(this, 'props.data.allContentfulRecipe.edges');
         this.main = Math.floor(Math.random() * this.recipes.length);
         this.mainRecipe = this.recipes[this.main].node;
     }
@@ -104,6 +106,23 @@ class Home extends Component {
       }
 
       return list;
+    }
+
+    search(searchPhrase) {
+      const recipes = this.state.sortedRecipes;
+      
+      var sorted = recipes.sort((a, b) => {
+        const recipeNameA = a.node.recipeName.toLowerCase();
+        const recipeNameB = b.node.recipeName.toLowerCase();
+        
+        if (recipeNameA.includes(searchPhrase) && recipeNameB.includes(searchPhrase)) return recipeNameA.localeCompare(recipeNameB);
+        else if (recipeNameA.includes(searchPhrase)) return -1;
+        else if (recipeNameB.includes(searchPhrase)) return 1;
+          
+        return recipeNameA.localeCompare(recipeNameB);;
+      });
+
+      this.setState({sortedRecipes: sorted});
     }
 
     render() {
@@ -157,17 +176,25 @@ class Home extends Component {
                       </div>
                   </Link>
                 </div>
-                <div className={homeStyles.thumbnails}>
-                  <div className={homeStyles.previews}>
-                      {this.recipes.map(({ node }, i) => {
-                        // if (i === this.main) { return <></> }
-                        return (
-                          <li key={node.slug} style={{marginBottom: 0}}>
-                            <RecipePreview recipe={node} />
-                          </li>
-                        )
-                      })}
+                <div style={{overflow: 'hidden', position: 'relative'}}>
+                  <div className={homeStyles.search}>
+                      <i class="ri-search-line" style={{fontSize: '1.4rem', verticalAlign: 'text-bottom', marginRight: '5px'}}></i>
+                      <input
+                        onChange={(e) => this.search(e.target.value.toLowerCase())} 
+                      >
+                      </input>
                     </div>
+                  <div className={homeStyles.thumbnails}>
+                    <div className={homeStyles.previews}>
+                        {this.state.sortedRecipes.map(({ node }, i) => {
+                          return (
+                            <li key={node.slug} style={{marginBottom: 0}}>
+                              <RecipePreview recipe={node} />
+                            </li>
+                          )
+                        })}
+                      </div>
+                  </div>
                 </div>
               </div>
               <div className={homeStyles.banner}>

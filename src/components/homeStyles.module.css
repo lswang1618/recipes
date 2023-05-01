@@ -18,11 +18,15 @@
 
 .subscribe h4 {
     margin: 0 auto;
+    color: white;
 }
 
 .subscribe:hover {
-    color: #ED3359;
     background-color: white;
+}
+
+.subscribe:hover h4 {
+    color: #ED3359;
 }
 
 .mainDish {
@@ -45,6 +49,20 @@
 .thumbnails {
     background-color: #E3DAFF;
     overflow: scroll;
+    max-height: calc(100% - 80px);
+}
+
+.search {
+    padding: 22px;
+    background-color: #C589E8;
+    border: 1px solid black;
+}
+
+.search input {
+    height: 30px;
+    font-size: 1rem;
+    font-family: SFPro;
+    width: calc(100% - 40px);
 }
 
 .thumbnail:hover .bg, .mainThumbnail:hover .bg {
