@@ -111,12 +111,13 @@ class RecipeTemplate extends React.Component {
     for (var j=0; j<list.length; j++) {
       const ingredient = list[j];
       const imgName = "/" + ingredient.ingredient.replace(/ /g, '-').toLowerCase() + ".jpg";
+      console.log(ingredient)
       ingredients.push(
         <div key={j} className={recipeStyles.ingredient}>
           <div className={recipeStyles.ingredientImg}>
             <img src={imgName}></img>
           </div>
-          <p>{ingredient.number + " " + ingredient.unit + " " + ingredient.ingredient}</p>
+          <p>{ingredient.number + " " + ingredient.unit + " " + ingredient.ingredient + (ingredient.option ? ` ${ingredient.option}` : "")}</p>
         </div>
       )
     }
@@ -232,7 +233,7 @@ class RecipeTemplate extends React.Component {
                 : <div className={recipeStyles.main} ref={this.mainRef}>
                 <div ref={this.ingredientsRef} style={{overflow: "scroll"}}>
                   <div className={recipeStyles.ingredients}>
-                      <div className={recipeStyles.ingredientWrapper} style={{paddingBottom: '2rem'}}>
+                      <div className={recipeStyles.ingredientWrapper} style={{paddingBottom: '2rem', marginRight: '10px'}}>
                         <h2>Ingredients</h2>
                         <div>{this.ingredients}</div>
                       </div>
@@ -268,6 +269,7 @@ export const pageQuery = graphql`
               unit
               number
               ingredient
+              option
             }
         }
         recipeSteps {
