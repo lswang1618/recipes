@@ -83,8 +83,6 @@ const richTextOptions = {
         [BLOCKS.EMBEDDED_ASSET]: (node) => {
             if (node.data.target) {
                 const { gatsbyImageData, file, title } = node.data.target;
-                console.log(node.data.target);
-                console.log(file);
                 const mimeType = file.contentType;
                 const mimeGroup = mimeType.split('/')[0]
     
