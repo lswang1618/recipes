@@ -1,12 +1,53 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import get from 'lodash/get'
 import SEO from "./seo"
-import recipeStyles from "./recipe.module.css"
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
-import Lightbox from "./lightbox"
+import * as recipeStyles from "./recipe.module.css"
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import LightboxVideo from "./lightboxVideo"
+import LightboxImage from './lightboxImage'
 import 'remixicon/fonts/remixicon.css'
+
+export const pageQuery = graphql`
+    query RecipeBySlug($slug: String!) {
+      contentfulRecipe (slug: { eq: $slug }) {
+        recipeName
+        recipeType
+        recipeDescription
+        recipeIngredients {
+            ingredients {
+              unit
+              number
+              ingredient
+              option
+            }
+        }
+        recipeSteps {
+            raw
+            references {
+              ... on ContentfulAsset {
+                contentful_id
+                gatsbyImageData
+                file {
+                  url
+                  contentType
+                }
+                title
+                __typename
+              }
+            }
+        }
+        recipeImage {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+        loreLink
+        chineseName
+        pinyinName
+    }
+  }
+`
 
 var script;
 var refs = [];
@@ -40,26 +81,20 @@ const richTextOptions = {
           return <li><div>{children}</div></li>
         },
         [BLOCKS.EMBEDDED_ASSET]: (node) => {
-            if (node.data.target.fields) {
-                const { title, description, file } = node.data.target.fields;
-                const mimeType = file['en-US'].contentType
+            if (node.data.target) {
+                const { gatsbyImageData, file, title } = node.data.target;
+                console.log(node.data.target);
+                console.log(file);
+                const mimeType = file.contentType;
                 const mimeGroup = mimeType.split('/')[0]
     
                 switch (mimeGroup) {
                     case 'image': 
-                      finalImageURL = file['en-US']['url'].substring(2);
-                      return <Lightbox fields = {node.data.target.fields} type="image"/>
+                      return <LightboxImage title={title} imageData={gatsbyImageData}/>
                     case 'video':
-                      return <Lightbox fields = {node.data.target.fields} type="video"/>
-                    case 'application':
-                        return <a
-                            alt={description ?  description['en-US'] : null}
-                            href={file['en-US'].url}
-                            target="_blank"
-                            >{ title ? title['en-US'] : file['en-US'].details.fileName }
-                        </a>
+                      return <LightboxVideo videoData={file.url}/>
                     default:
-                        return <span style={{backgroundColor: 'red', color: 'white'}}> {mimeType} embedded asset </span>
+                        return ""
                 }
             }
         },
@@ -111,7 +146,6 @@ class RecipeTemplate extends React.Component {
     for (var j=0; j<list.length; j++) {
       const ingredient = list[j];
       const imgName = "/" + ingredient.ingredient.replace(/ /g, '-').toLowerCase() + ".jpg";
-      console.log(ingredient)
       ingredients.push(
         <div key={j} className={recipeStyles.ingredient}>
           <div className={recipeStyles.ingredientImg}>
@@ -158,8 +192,7 @@ class RecipeTemplate extends React.Component {
     refs = [];
     const recipe = get(this.props, 'data.contentfulRecipe');
     this.renderIngredients(recipe.recipeIngredients.ingredients);
-    const steps = documentToReactComponents(recipe.recipeSteps.json, richTextOptions);
-    console.log(recipe.recipeSteps.json);
+    const steps = renderRichText(recipe.recipeSteps, richTextOptions);
 
     const { mobileSelected, mobile} = this.state;
     
@@ -180,7 +213,7 @@ class RecipeTemplate extends React.Component {
                     <i class="ri-arrow-left-line"></i>
                   </a>
                   <div className={recipeStyles.thumbnail}>
-                    <img src={recipe.recipeImage.fluid.src}></img>
+                    <GatsbyImage image={getImage(recipe.recipeImage)} />
                   </div>
                   <div className={recipeStyles.title}>
                     <div style={{display: 'flex', columnGap: "7px"}}>
@@ -256,33 +289,4 @@ class RecipeTemplate extends React.Component {
   }
 }
 
-export default RecipeTemplate
-
-export const pageQuery = graphql`
-    query RecipeBySlug($slug: String!) {
-      contentfulRecipe (slug: { eq: $slug }) {
-        recipeName
-        recipeType
-        recipeDescription
-        recipeIngredients {
-            ingredients {
-              unit
-              number
-              ingredient
-              option
-            }
-        }
-        recipeSteps {
-            json
-        }
-        recipeImage {
-            fluid(maxWidth: 1180, background: "rgb:000000") {
-              ...GatsbyContentfulFluid_tracedSVG
-            }
-        }
-        loreLink
-        chineseName
-        pinyinName
-    }
-  }
-`
+export default RecipeTemplate;

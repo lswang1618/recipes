@@ -1,8 +1,9 @@
 import React, {Component} from "react"
-import homeStyles from "../components/homeStyles.module.css"
+import * as homeStyles from "../components/homeStyles.module.css"
 import ImgBackground from "../components/imageBackground"
 import "../components/layout.css"
-import Img from "gatsby-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+
 import { Link, graphql } from "gatsby";
 import get from 'lodash/get'
 
@@ -24,9 +25,7 @@ export const query = graphql`
           postedDate
           recipeId
           recipeImage {
-            fixed(width: 300) {
-                ...GatsbyContentfulFixed_tracedSVG
-            }
+            gatsbyImageData(layout: FULL_WIDTH)
           }
           loreLink
         }
@@ -35,6 +34,7 @@ export const query = graphql`
 }`
 
 const RecipePreview = ({recipe}) => {
+  const recipeImage = getImage(recipe.recipeImage)
   return (
       <Link to={`/recipes/${recipe.slug}`} style={{textDecoration: 'none', color: 'black'}} className={homeStyles.thumbnail}>
           <div className={homeStyles.recipePreview}>
@@ -42,7 +42,7 @@ const RecipePreview = ({recipe}) => {
                   <div style={{position: 'relative', margin: '0 auto', width: 'max-content'}}>
                     <ImgBackground width={190} color="#C589E8"/>
                     <div className={homeStyles.previewImage}>
-                        <Img fixed={recipe.recipeImage.fixed} style={{
+                        <GatsbyImage image={recipeImage} style={{
                             width: '150px', 
                             height: '150px',
                             display: 'inline-block',
@@ -126,6 +126,7 @@ class Home extends Component {
 
     render() {
         const { width, topFive } = this.state;
+        const mainImage = getImage(this.mainRecipe.recipeImage);
 
         return(<div>
             {/* <Header /> */}
@@ -144,7 +145,7 @@ class Home extends Component {
                               <div style={{position: 'relative', width: `${width}px`}}>
                                 <ImgBackground width={width} color="#FCFE00"/>
                                 <div className={homeStyles.previewImage}>
-                                    <Img fixed={this.mainRecipe.recipeImage.fixed} style={{
+                                    <GatsbyImage image={mainImage} style={{
                                         width: `${width * 0.8}px`,
                                         height: `${width * 0.8}px`, 
                                         display: 'inline-block',
@@ -246,7 +247,7 @@ class Home extends Component {
                                       <div style={{position: 'relative', margin: '0 auto', width: 'max-content'}}>
                                         <ImgBackground width={150} color="#C589E8"/>
                                         <div className={homeStyles.previewImage}>
-                                            <Img fixed={this.recipes[val].node.recipeImage.fixed} style={{
+                                            <GatsbyImage image={getImage(this.recipes[val].node.recipeImage)} style={{
                                                 width: '110px', 
                                                 height: '110px',
                                                 display: 'inline-block',

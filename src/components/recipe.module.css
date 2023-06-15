@@ -40,6 +40,8 @@
     max-height: 170px;
     display: inline-block;
     margin-right: 25px;
+    overflow: hidden;
+    padding-bottom: 20px;
 }
 
 .thumbnail img {
@@ -58,7 +60,6 @@
     min-width: 300px;
     margin: 15px 0;
     position: relative;
-    z-index: 1;
 }
 
 .title h1 {
@@ -259,9 +260,15 @@
     .thumbnail {
         position: absolute;
         right: -80px;
-        top: 50%;
+        top: calc(50% - 15vw);
         margin-right: 0;
         z-index: 0;
+        height: 30vw;
+        width: 30vw;
+    }
+
+    .thumbnail img {
+        margin-top: 0;
     }
 
     .ingredients, .stepWrapper {

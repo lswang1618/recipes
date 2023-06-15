@@ -21,7 +21,15 @@ module.exports = {
          },
         },
         `gatsby-transformer-sharp`, 
-        `gatsby-plugin-sharp`,
+        {
+          resolve: `gatsby-plugin-sharp`,
+          options: {
+            defaults: {
+              placeholder: `none`,
+            },
+          },
+        },
+        `gatsby-plugin-image`,
         {
             resolve: `gatsby-source-contentful`,
             options: {

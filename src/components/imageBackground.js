@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import homeStyles from "./homeStyles.module.css"
+import * as homeStyles from "./homeStyles.module.css"
 
 class ImgBackground extends Component {
     constructor(props) {
