@@ -88,6 +88,7 @@ const richTextOptions = {
     
                 switch (mimeGroup) {
                     case 'image': 
+                      finalImageURL = "https://" + file.url.substring(2);
                       return <LightboxImage title={title} imageData={gatsbyImageData}/>
                     case 'video':
                       return <LightboxVideo videoData={file.url}/>
@@ -200,8 +201,8 @@ class RecipeTemplate extends React.Component {
           <SEO 
             title={`${recipe.recipeName}`} 
             description={`${recipe.recipeDescription}`} 
-            recipe={`${recipe}`}
-            finalImageURL={`${finalImageURL}`}
+            recipe={recipe}
+            finalImageURL={finalImageURL}
           />
           <div>
             <div className={recipeStyles.mobileHeader}>
